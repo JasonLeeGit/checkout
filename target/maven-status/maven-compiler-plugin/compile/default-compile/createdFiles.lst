@@ -1,0 +1,7 @@
+cdl\kata\checkout\order\OrderLine.class
+cdl\kata\checkout\order\AddOrderLines.class
+cdl\kata\checkout\sku\SKU.class
+cdl\kata\checkout\sku\SKUItem.class
+cdl\kata\checkout\order\Order.class
+cdl\kata\checkout\sku\SetupSKUs.class
+cdl\kata\checkout\Main.class
