@@ -12,7 +12,7 @@ import cdl.kata.checkout.sku.SetupSKUs;
 
 public class Main {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args)  {
 		System.out.println("******************************************************************");
 		System.out.println("                    CDL Kata Checkout System                      ");
 		System.out.println("******************************************************************");
@@ -24,11 +24,12 @@ public class Main {
 		SetupSKUs setupSKUs = new SetupSKUs(scanner, SKUMap);
 
 		SKUMap = setupSKUs.addSKUs();
-
+	
 		AddOrderLines addOrderLines = new AddOrderLines(order);
 
 		SKUItem skuItem = new SKUItem(scanner, SKUMap, addOrderLines);
-		skuItem.addSKUItems();	
+		skuItem.addSKUItems();
+	
 		System.out.println("******************************************************************");
 		System.out.println("Final Order Total = £" + order.printFinalOrderTotal());
 		System.out.println("******************************************************************");

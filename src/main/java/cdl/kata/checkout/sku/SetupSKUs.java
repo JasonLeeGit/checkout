@@ -24,7 +24,7 @@ public class SetupSKUs {
 		this.SKUMap = sKUMap;
 	}
 
-	public Map<String, SKU> addSKUs() throws Exception {
+	public Map<String, SKU> addSKUs() {
 		while (enterSKU == true) {
 
 			System.out.println(INPUT_MESSAGE);
@@ -63,18 +63,18 @@ public class SetupSKUs {
 			}
 			System.out.println(NEW_SKU_MESSAGE);
 
-//			String addAnother = scanner.next();
-//			if (addAnother.equalsIgnoreCase("N")) {
-//				enterSKU = false;
-//			}
-			
-			String addAnother = scanner.next();
-			if (addAnother.equalsIgnoreCase("N")) {
-				enterSKU = false;
-			} else  if (addAnother.equalsIgnoreCase("Y")) {
-				System.out.println(NEW_SKU_MESSAGE);
-			} else {
-				throw new Exception("Error incorrect letter added");
+			try {
+				String addAnother = scanner.next();
+				if (addAnother.equalsIgnoreCase("N")) {
+					enterSKU = false;
+				} else if (addAnother.equalsIgnoreCase("Y")) {
+					System.out.println(NEW_SKU_MESSAGE);
+				} else {
+					scanner.nextLine();
+					throw new Exception("Error incorrect letter added \n");
+				}
+			} catch (Exception e) {
+				System.out.println("Error incorrect letter added");
 			}
 		}
 		return SKUMap;

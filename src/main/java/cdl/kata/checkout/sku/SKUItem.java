@@ -26,7 +26,7 @@ public class SKUItem {
 		this.addOrderLines = addOrderLines;
 	}
 
-	public void addSKUItems() throws Exception {
+	public void addSKUItems() {
 
 		while (enterOrder == true) {
 
@@ -52,20 +52,18 @@ public class SKUItem {
 				addOrderLines.calculate(quantity, skuPrice);
 				System.out.println(NEW_SKU_MESSAGE);
 
-//				String addAnother = scanner.next();
-//				if (addAnother.equalsIgnoreCase("N")) {
-//					enterOrder = false;
-//				} else {
-//					scanner.nextLine();
-//				}
-				
-				String addAnother = scanner.next();
-				if (addAnother.equalsIgnoreCase("N")) {
-					enterOrder = false;
-				} else  if (addAnother.equalsIgnoreCase("Y")) {
-					System.out.println(NEW_SKU_MESSAGE);
-				} else {
-					throw new Exception("Error incorrect letter added");
+				try {
+					String addAnother = scanner.next();
+					if (addAnother.equalsIgnoreCase("N")) {
+						enterOrder = false;
+					} else if (addAnother.equalsIgnoreCase("Y")) {
+						System.out.println(NEW_SKU_MESSAGE);
+					} else {
+						scanner.nextLine();
+						throw new Exception("Error incorrect letter added");
+					}
+				} catch (Exception e) {
+					System.out.println("Error incorrect letter added");
 				}
 			} else {
 				printErrorMessage(ERROR_MESSAGE_START + item + ERROR_MESSAGE_MID + quantity);
