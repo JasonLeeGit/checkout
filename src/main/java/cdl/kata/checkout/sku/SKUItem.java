@@ -4,39 +4,47 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import cdl.kata.checkout.order.AddOrderLines;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import cdl.kata.checkout.order.AddOrderLines;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
 public class SKUItem {
 
-	private boolean enterOrder = true;
 	private Scanner scanner;
 	private Map<String, SKU> SKUMap;
 	private AddOrderLines addOrderLines;
-	private static final String UPPERCASE_ERROR = "Incorrect Value Please enter upper case letter for SKU item you entered: ";
+	private static final String LETTER_ERROR = "Incorrect Value Please enter letter for SKU item you entered: ";
 	private static final String INTEGER_ERROR = "Incorrect Value Please enter a integer value for quantity you entered: ";
 	private static final String NEW_SKU_MESSAGE = "Enter a new SKU Item press 'Y' to 'CONTINUE' to 'END' press 'N'";;
 	private static final String INPUT_MESSAGE = "Enter Sku Item and Quantity seperated by a space IE: A 5";
 	private static final String ERROR_MESSAGE_START = "Incorrect Values entered for item ";
 	private static final String ERROR_MESSAGE_MID = " or quantity ";
 
-	public SKUItem(Scanner scanner, Map<String, SKU> sKUMap, AddOrderLines addOrderLines) {
-		super();
-		this.scanner = scanner;
-		this.SKUMap = sKUMap;
-		this.addOrderLines = addOrderLines;
-	}
+//	public SKUItem(Scanner scanner, Map<String, SKU> sKUMap, AddOrderLines addOrderLines) {
+//		super();
+//		this.scanner = scanner;
+//		this.SKUMap = sKUMap;
+//		this.addOrderLines = addOrderLines;
+//	}
 
+	private static Logger logger = LoggerFactory.getLogger(SKUItem.class);
+	
 	public void addSKUItems() {
+		boolean enterOrder = true;	
+		while (enterOrder) {
 
-		while (enterOrder == true) {
-
-			System.out.println(INPUT_MESSAGE);
+			logger.info(INPUT_MESSAGE);
 
 			String item = "";
 			if (scanner.hasNext(Pattern.compile("[A-Za-z]"))) {
 				item = scanner.next(Pattern.compile("[A-Za-z]"));
 			} else {
-				printErrorMessage(UPPERCASE_ERROR + scanner.next());
+				printErrorMessage(LETTER_ERROR + scanner.next());
 			}
 
 			int quantity = 0;
@@ -50,20 +58,20 @@ public class SKUItem {
 
 			if (quantity > 0 && skuPrice != null) {
 				addOrderLines.calculate(quantity, skuPrice);
-				System.out.println(NEW_SKU_MESSAGE);
+				logger.info(NEW_SKU_MESSAGE);
 
 				try {
 					String addAnother = scanner.next();
 					if (addAnother.equalsIgnoreCase("N")) {
 						enterOrder = false;
 					} else if (addAnother.equalsIgnoreCase("Y")) {
-						System.out.println(NEW_SKU_MESSAGE);
+						logger.info(NEW_SKU_MESSAGE);
 					} else {
 						scanner.nextLine();
 						throw new Exception("Error incorrect letter added");
 					}
 				} catch (Exception e) {
-					System.out.println("Error incorrect letter added");
+					logger.info("Error incorrect letter added");
 				}
 			} else {
 				printErrorMessage(ERROR_MESSAGE_START + item + ERROR_MESSAGE_MID + quantity);
@@ -72,6 +80,6 @@ public class SKUItem {
 	}
 
 	private void printErrorMessage(String errorMessage) {
-		System.out.println(errorMessage);
+		logger.info(errorMessage);
 	}
 }

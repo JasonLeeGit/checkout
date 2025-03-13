@@ -6,28 +6,39 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
 public class SetupSKUs {
 
-	private Map<String, SKU> SKUMap = new HashMap<>();
-	private boolean enterSKU = true;
 	private Scanner scanner;
-	private static final String DECIMAL_ERROR = "Incorrect Value Please enter upper case letter for SKU item you entered: ";
-	private static final String UPPERCASE_ERROR = "Incorrect Value Please enter upper case letter for SKU item you entered: ";
+	private Map<String, SKU> SKUMap = new HashMap<>();
+	
+	private static final String DECIMAL_ERROR = "Incorrect Value Please enter a decimal value you entered: ";
+	private static final String LETTER_ERROR = "Incorrect Value Please enter letter for SKU item you entered: ";
 	private static final String INTEGER_ERROR = "Incorrect Value Please enter a integer value for quantity you entered: ";
 	private static final String NEW_SKU_MESSAGE = "Enter a new SKU Item press 'Y' to 'CONTINUE' to 'END' press 'N'";
 	private static final String INPUT_MESSAGE = "Enter Sku Item, Price, Quantity For SpecialPrice, Special Price separated by a space: A 2.00 6 10.00";
 	private static final String FORMAT_MESSAGE = "Please use the following example format: A 5.00 10 45.00";
 
-	public SetupSKUs(Scanner scanner, Map<String, SKU> sKUMap) {
-		super();
-		this.scanner = scanner;
-		this.SKUMap = sKUMap;
-	}
-
+//	public SetupSKUs(Scanner scanner, Map<String, SKU> sKUMap) {
+//		super();
+//		this.scanner = scanner;
+//		this.SKUMap = sKUMap;
+//	}
+	
+	private static Logger logger = LoggerFactory.getLogger(SetupSKUs.class);
+	
 	public Map<String, SKU> addSKUs() {
-		while (enterSKU == true) {
+		boolean enterSKU = true;
+		while (enterSKU) {
 
-			System.out.println(INPUT_MESSAGE);
+			logger.info(INPUT_MESSAGE);
 
 			String item = null;
 			BigDecimal price = null;
@@ -37,7 +48,7 @@ public class SetupSKUs {
 			if (scanner.hasNext(Pattern.compile("[A-Za-z]"))) {
 				item = scanner.next(Pattern.compile("[A-Za-z]"));
 			} else {
-				printValidationError(UPPERCASE_ERROR + scanner.next());
+				printValidationError(LETTER_ERROR + scanner.next());
 			}
 
 			if (scanner.hasNextBigDecimal()) {
@@ -58,23 +69,21 @@ public class SetupSKUs {
 				printValidationError(DECIMAL_ERROR + scanner.next());
 			}
 
-			if (valid(item, price, quantity, specialPrice)) {
+			if (validateUserInputs(item, price, quantity, specialPrice)) {
 				addSKU(item.toUpperCase(), price, quantity, specialPrice);
 			}
-			System.out.println(NEW_SKU_MESSAGE);
+			logger.info(NEW_SKU_MESSAGE);
 
 			try {
 				String addAnother = scanner.next();
 				if (addAnother.equalsIgnoreCase("N")) {
 					enterSKU = false;
-				} else if (addAnother.equalsIgnoreCase("Y")) {
-					System.out.println(NEW_SKU_MESSAGE);
-				} else {
+				} else if (!addAnother.equalsIgnoreCase("Y")) {
 					scanner.nextLine();
 					throw new Exception("Error incorrect letter added \n");
 				}
 			} catch (Exception e) {
-				System.out.println("Error incorrect letter added");
+				logger.info("Error incorrect letter added");
 			}
 		}
 		return SKUMap;
@@ -84,7 +93,7 @@ public class SetupSKUs {
 		SKUMap.put(item, new SKU(item, price, quantity, specialPrice));
 	}
 
-	private boolean valid(String item, BigDecimal price, int quantity, BigDecimal specialPrice) {
+	private boolean validateUserInputs(String item, BigDecimal price, int quantity, BigDecimal specialPrice) {
 		if (item != null && price != null && quantity > 0 && specialPrice != null) {
 			return true;
 		} else {
@@ -93,7 +102,7 @@ public class SetupSKUs {
 	}
 
 	private void printValidationError(String errorMessage) {
-		System.out.println(errorMessage);
-		System.out.println(FORMAT_MESSAGE);
+		logger.info(errorMessage);
+		logger.info(FORMAT_MESSAGE);
 	}
 }

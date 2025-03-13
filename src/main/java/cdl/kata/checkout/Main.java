@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.event.Level;
+
 import cdl.kata.checkout.order.AddOrderLines;
 import cdl.kata.checkout.order.Order;
 import cdl.kata.checkout.sku.SKU;
@@ -12,10 +16,15 @@ import cdl.kata.checkout.sku.SetupSKUs;
 
 public class Main {
 
+	private static Logger logger = LoggerFactory.getLogger(Main.class);
+	
 	public static void main(String[] args)  {
-		System.out.println("******************************************************************");
-		System.out.println("                    CDL Kata Checkout System                      ");
-		System.out.println("******************************************************************");
+	
+		//ogger.isEnabledForLevel(Level.INFO);
+		
+		logger.info("******************************************************************");
+		logger.info("                    CDL Kata Checkout System                      ");
+		logger.info("******************************************************************");
 
 		Map<String, SKU> SKUMap = new HashMap<>();
 		Scanner scanner = new Scanner(System.in);
@@ -30,9 +39,9 @@ public class Main {
 		SKUItem skuItem = new SKUItem(scanner, SKUMap, addOrderLines);
 		skuItem.addSKUItems();
 	
-		System.out.println("******************************************************************");
-		System.out.println("Final Order Total = £" + order.printFinalOrderTotal());
-		System.out.println("******************************************************************");
+		logger.info("******************************************************************");
+		logger.info("Final Order Total = £" + order.printFinalOrderTotal());
+		logger.info("******************************************************************");
 
 		scanner.close();
 	}

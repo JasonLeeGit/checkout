@@ -3,13 +3,16 @@ package cdl.kata.checkout.order;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import cdl.kata.checkout.sku.SKU;
 
 public class AddOrderLines {
-
 	private BigDecimal cost = new BigDecimal(BigInteger.ZERO, 2);
 	private BigDecimal normalPrice = new BigDecimal(BigInteger.ZERO, 2);
 	private BigDecimal discountPrice = new BigDecimal(BigInteger.ZERO, 2);
+	
 	private Order order;
 
 	public AddOrderLines(Order order) {
@@ -17,6 +20,10 @@ public class AddOrderLines {
 		this.order = order;
 	}
 
+	private static Logger logger = LoggerFactory.getLogger(AddOrderLines.class);
+
+
+	
 	public void calculate(int quantity, SKU skuPrice) {
 		if (order.getOrderLines().size() > 0) {
 			boolean matched = false;
@@ -34,9 +41,9 @@ public class AddOrderLines {
 						calulatePrices(skuPrice, skuQty, singlePriceRemainder);
 
 						orderLine.setOrderlineTotal(normalPrice.add(cost));
-						System.out.println("******************************************************************");
-						System.out.println("SKU " + skuPrice.getItem() + " Order Total = £" + normalPrice.add(cost));
-						System.out.println("******************************************************************");
+						logger.info("******************************************************************");
+						logger.info("SKU " + skuPrice.getItem() + " Order Total = £" + normalPrice.add(cost));
+						logger.info("******************************************************************");
 						matched = true;
 						break;
 					}
@@ -48,9 +55,9 @@ public class AddOrderLines {
 
 				calulatePrices(skuPrice, quantity, singlePriceRemainder);
 				order.getOrderLines().add(new OrderLine(skuPrice, quantity, normalPrice.add(cost)));
-				System.out.println("******************************************************************");
-				System.out.println("SKU " + skuPrice.getItem() + " Order Total = £" + normalPrice.add(cost));
-				System.out.println("******************************************************************");
+				logger.info("******************************************************************");
+				logger.info("SKU " + skuPrice.getItem() + " Order Total = £" + normalPrice.add(cost));
+				logger.info("******************************************************************");
 			}
 		} else {
 			// first ever order lne
@@ -58,12 +65,12 @@ public class AddOrderLines {
 
 			calulatePrices(skuPrice, quantity, singlePriceRemainder);
 			order.getOrderLines().add(new OrderLine(skuPrice, quantity, normalPrice.add(cost)));
-			System.out.println("******************************************************************");
-			System.out.println("SKU " + skuPrice.getItem() + " Order Total = £" + normalPrice.add(cost));
-			System.out.println("******************************************************************");
+			logger.info("******************************************************************");
+			logger.info("SKU " + skuPrice.getItem() + " Order Total = £" + normalPrice.add(cost));
+			logger.info("******************************************************************");
 		}
-		System.out.println("Running Order Total = £" + order.printFinalOrderTotal());
-		System.out.println("******************************************************************");
+		logger.info("Running Order Total = £" + order.printFinalOrderTotal());
+		logger.info("******************************************************************");
 	}
 
 	private void calulatePrices(SKU skuPrice, int skuQty, int singlePriceRemainder) {
