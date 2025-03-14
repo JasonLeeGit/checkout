@@ -23,23 +23,27 @@ public class Main {
 		logger.info("                    CDL Kata Checkout System                      ");
 		logger.info("******************************************************************");
 
-		Map<String, SKU> SKUMap = new HashMap<>();
+		try {
+			Map<String, SKU> SKUMap = new HashMap<>();
+			
+			Scanner scanner = new Scanner(System.in);
+			
+			Order order = new Order();
+	
+			SetupSKUs setupSKUs = new SetupSKUs(scanner, SKUMap);
+	
+			SKUMap = setupSKUs.addSKUs();
+	
+			SKUItem skuItem = new SKUItem(scanner, SKUMap, new AddOrderLines(order));
+			skuItem.addSKUItems();
+	
+			logger.info("******************************************************************");
+			logger.info("Final Order Total = £" + order.printFinalOrderTotal());
+			logger.info("******************************************************************");
 		
-		Scanner scanner = new Scanner(System.in);
+		} catch(Exception e) {
+			logger.error(e.toString());
+		}
 		
-		Order order = new Order();
-
-		SetupSKUs setupSKUs = new SetupSKUs(scanner, SKUMap);
-
-		SKUMap = setupSKUs.addSKUs();
-
-		SKUItem skuItem = new SKUItem(scanner, SKUMap, new AddOrderLines(order));
-		skuItem.addSKUItems();
-
-		logger.info("******************************************************************");
-		logger.info("Final Order Total = £" + order.printFinalOrderTotal());
-		logger.info("******************************************************************");
-
-		scanner.close();
 	}
 }
