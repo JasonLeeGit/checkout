@@ -87,7 +87,6 @@ public class SetupSKUs {
 
 	private boolean validateUserInputs(String item, BigDecimal price, int quantity, BigDecimal specialPrice) {
 		if (item != null && price != null && quantity > 0 && specialPrice != null) {
-			System.out.println("Valid Inputs");
 			return true;
 		} else {
 			return false;
