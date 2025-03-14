@@ -2,7 +2,6 @@ package cdl.kata.checkout.sku;
 
 import java.util.Map;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,13 +24,6 @@ public class SKUItem {
 	private static final String ERROR_MESSAGE_START = "Incorrect Values entered for item ";
 	private static final String ERROR_MESSAGE_MID = " or quantity ";
 
-//	public SKUItem(Scanner scanner, Map<String, SKU> sKUMap, AddOrderLines addOrderLines) {
-//		super();
-//		this.scanner = scanner;
-//		this.SKUMap = sKUMap;
-//		this.addOrderLines = addOrderLines;
-//	}
-
 	private static Logger logger = LoggerFactory.getLogger(SKUItem.class);
 	
 	public void addSKUItems() {
@@ -41,8 +33,8 @@ public class SKUItem {
 			logger.info(INPUT_MESSAGE);
 
 			String item = "";
-			if (scanner.hasNext(Pattern.compile("[A-Za-z]"))) {
-				item = scanner.next(Pattern.compile("[A-Za-z]"));
+			if (scanner.hasNext()) { 
+				item = scanner.next();
 			} else {
 				printErrorMessage(LETTER_ERROR + scanner.next());
 			}

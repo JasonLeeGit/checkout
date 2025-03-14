@@ -1,10 +1,8 @@
 package cdl.kata.checkout.sku;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class SetupSKUs {
 
 	private Scanner scanner;
-	private Map<String, SKU> SKUMap = new HashMap<>();
+	private Map<String, SKU> SKUMap;
 	
 	private static final String DECIMAL_ERROR = "Incorrect Value Please enter a decimal value you entered: ";
 	private static final String LETTER_ERROR = "Incorrect Value Please enter letter for SKU item you entered: ";
@@ -26,12 +24,6 @@ public class SetupSKUs {
 	private static final String INPUT_MESSAGE = "Enter Sku Item, Price, Quantity For SpecialPrice, Special Price separated by a space: A 2.00 6 10.00";
 	private static final String FORMAT_MESSAGE = "Please use the following example format: A 5.00 10 45.00";
 
-//	public SetupSKUs(Scanner scanner, Map<String, SKU> sKUMap) {
-//		super();
-//		this.scanner = scanner;
-//		this.SKUMap = sKUMap;
-//	}
-	
 	private static Logger logger = LoggerFactory.getLogger(SetupSKUs.class);
 	
 	public Map<String, SKU> addSKUs() {
@@ -44,9 +36,9 @@ public class SetupSKUs {
 			BigDecimal price = null;
 			int quantity = 0;
 			BigDecimal specialPrice = null;
-
-			if (scanner.hasNext(Pattern.compile("[A-Za-z]"))) {
-				item = scanner.next(Pattern.compile("[A-Za-z]"));
+			
+			if (scanner.hasNext()) {
+				item = scanner.next();
 			} else {
 				printValidationError(LETTER_ERROR + scanner.next());
 			}
@@ -80,7 +72,7 @@ public class SetupSKUs {
 					enterSKU = false;
 				} else if (!addAnother.equalsIgnoreCase("Y")) {
 					scanner.nextLine();
-					throw new Exception("Error incorrect letter added \n");
+					throw new Exception("Error incorrect letter added");
 				}
 			} catch (Exception e) {
 				logger.info("Error incorrect letter added");
@@ -95,6 +87,7 @@ public class SetupSKUs {
 
 	private boolean validateUserInputs(String item, BigDecimal price, int quantity, BigDecimal specialPrice) {
 		if (item != null && price != null && quantity > 0 && specialPrice != null) {
+			System.out.println("Valid Inputs");
 			return true;
 		} else {
 			return false;

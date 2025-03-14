@@ -15,5 +15,4 @@ public class SKU {
 	private BigDecimal price;
 	private int quantityForSpecialPrice;
 	private BigDecimal specialPrice;
-
 }

@@ -22,8 +22,6 @@ public class AddOrderLines {
 
 	private static Logger logger = LoggerFactory.getLogger(AddOrderLines.class);
 
-
-	
 	public void calculate(int quantity, SKU skuPrice) {
 		if (order.getOrderLines().size() > 0) {
 			boolean matched = false;
