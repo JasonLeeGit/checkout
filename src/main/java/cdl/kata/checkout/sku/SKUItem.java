@@ -3,9 +3,6 @@ package cdl.kata.checkout.sku;
 import java.util.Map;
 import java.util.Scanner;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import cdl.kata.checkout.order.AddOrderLines;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -24,7 +21,7 @@ public class SKUItem {
 	private static final String ERROR_MESSAGE_START = "Incorrect Values entered for item ";
 	private static final String ERROR_MESSAGE_MID = " or quantity ";
 
-	private static Logger logger = LoggerFactory.getLogger(SKUItem.class);
+	private static final Logger logger = Logger.getLogger(SKUItem.class.getName());
 	
 	public void addSKUItems() {
 		boolean enterOrder = true;	
