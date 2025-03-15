@@ -54,11 +54,6 @@
    		 	<version>3.0</version>
     		<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>software.coders.ltd</groupId>
-			<artifactId>artist.albums.mvc</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
   </dependencies>
 
   <build>
