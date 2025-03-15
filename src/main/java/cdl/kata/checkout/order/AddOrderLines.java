@@ -2,9 +2,7 @@ package cdl.kata.checkout.order;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 import cdl.kata.checkout.sku.SKU;
 
@@ -20,7 +18,7 @@ public class AddOrderLines {
 		this.order = order;
 	}
 
-	private static Logger logger = LoggerFactory.getLogger(AddOrderLines.class);
+	private static final Logger logger = Logger.getLogger(AddOrderLines.class.getName());
 
 	public void calculate(int quantity, SKU skuPrice) {
 		if (order.getOrderLines().size() > 0) {

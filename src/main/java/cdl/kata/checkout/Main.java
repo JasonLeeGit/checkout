@@ -3,9 +3,7 @@ package cdl.kata.checkout;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 import cdl.kata.checkout.order.AddOrderLines;
 import cdl.kata.checkout.order.Order;
@@ -15,7 +13,7 @@ import cdl.kata.checkout.sku.SetupSKUs;
 
 public class Main {
 
-	private static Logger logger = LoggerFactory.getLogger(Main.class);
+	private static final Logger logger = Logger.getLogger(Main.class.getName());
 
 	public static void main(String[] args) {
 
@@ -42,7 +40,7 @@ public class Main {
 			logger.info("******************************************************************");
 		
 		} catch(Exception e) {
-			logger.error(e.toString());
+			logger.info(e.toString());
 		}
 		
 	}

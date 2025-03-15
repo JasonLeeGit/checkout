@@ -3,9 +3,7 @@ package cdl.kata.checkout.sku;
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Scanner;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -24,7 +22,7 @@ public class SetupSKUs {
 	private static final String INPUT_MESSAGE = "Enter Sku Item, Price, Quantity For SpecialPrice, Special Price separated by a space: A 2.00 6 10.00";
 	private static final String FORMAT_MESSAGE = "Please use the following example format: A 5.00 10 45.00";
 
-	private static Logger logger = LoggerFactory.getLogger(SetupSKUs.class);
+	private static final Logger logger = Logger.getLogger(SetupSKUs.class.getName());
 	
 	public Map<String, SKU> addSKUs() {
 		boolean enterSKU = true;
