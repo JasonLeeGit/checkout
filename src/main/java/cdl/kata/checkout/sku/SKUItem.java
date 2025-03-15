@@ -53,14 +53,16 @@ public class SKUItem {
 				logger.info(NEW_SKU_MESSAGE);
 
 				try {
-					String addAnother = scanner.next();
-					if (addAnother.equalsIgnoreCase("N")) {
-						enterOrder = false;
-					} else if (addAnother.equalsIgnoreCase("Y")) {
-						logger.info(NEW_SKU_MESSAGE);
-					} else {
-						scanner.nextLine();
-						throw new Exception("Error incorrect letter added");
+					if (scanner.hasNext()) { 
+						String addAnother = scanner.next();
+						if (addAnother.equalsIgnoreCase("N")) {
+							enterOrder = false;
+						} else if (addAnother.equalsIgnoreCase("Y")) {
+							logger.info(NEW_SKU_MESSAGE);
+						} else {
+							scanner.nextLine();
+							throw new Exception("Error incorrect letter added");
+						}
 					}
 				} catch (Exception e) {
 					logger.info("Error incorrect letter added");

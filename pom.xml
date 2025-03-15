@@ -31,8 +31,7 @@
 		    <groupId>org.projectlombok</groupId>
 		    <artifactId>lombok</artifactId>
 		    <version>1.18.36</version>
-	  	</dependency>
- 	
+	  	</dependency>	
 	  	<dependency>
 	    	<groupId>org.slf4j</groupId>
 	    	<artifactId>slf4j-api</artifactId>
@@ -49,20 +48,23 @@
       		<artifactId>junit-jupiter-api</artifactId>
       		<scope>test</scope>
     	</dependency>
-
 	    <dependency>
 	      <groupId>org.junit.jupiter</groupId>
 	      <artifactId>junit-jupiter-params</artifactId>
 	      <scope>test</scope>
-	    </dependency>
-	    
+	    </dependency>	    
 		<dependency>
 		    <groupId>org.mockito</groupId>
 		    <artifactId>mockito-core</artifactId>
 		    <version>5.15.2</version>
 		    <scope>test</scope>
 		</dependency>
-
+		<dependency>
+   		 	<groupId>org.hamcrest</groupId>
+    		<artifactId>hamcrest</artifactId>
+   		 	<version>3.0</version>
+    		<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>software.coders.ltd</groupId>
 			<artifactId>artist.albums.mvc</artifactId>
@@ -71,14 +73,12 @@
   </dependencies>
 
   <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <pluginManagement>
       <plugins>
-        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.4.0</version>
         </plugin>
-        <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <version>3.3.1</version>
@@ -94,6 +94,15 @@
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.4.2</version>
+           <configuration>
+	        <archive>
+	          <manifest>
+	            <addClasspath>true</addClasspath>
+	            <classpathPrefix>lib/</classpathPrefix>
+	            <mainClass>cdl.kata.checkout.Main</mainClass>
+	          </manifest>
+	        </archive>
+	      </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
@@ -103,7 +112,6 @@
           <artifactId>maven-deploy-plugin</artifactId>
           <version>3.1.2</version>
         </plugin>
-        <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
         <plugin>
           <artifactId>maven-site-plugin</artifactId>
           <version>3.12.1</version>
@@ -111,23 +119,7 @@
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.6.1</version>
-        </plugin>
-        
-         <plugin>
-	      <groupId>org.apache.maven.plugins</groupId>
-	      <artifactId>maven-jar-plugin</artifactId>
-	      <version>3.1.0</version>
-	      <configuration>
-	        <archive>
-	          <manifest>
-	            <addClasspath>true</addClasspath>
-	            <classpathPrefix>lib/</classpathPrefix>
-	            <mainClass>cdl.kata.checkout.Main</mainClass>
-	          </manifest>
-	        </archive>
-	      </configuration>
-	    </plugin>
-    
+        </plugin>  
       </plugins>
     </pluginManagement>
   </build>

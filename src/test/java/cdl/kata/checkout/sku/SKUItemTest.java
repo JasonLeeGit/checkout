@@ -1,6 +1,9 @@
 package cdl.kata.checkout.sku;
 
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -37,14 +40,19 @@ public class SKUItemTest {
 	public void addSKUItems() {
 		
 		when(mockScanner.hasNext()).thenReturn(true);
-		when(mockScanner.next()).thenReturn("A", "Y", "B", "Y", "A", "Y", "C", "Y", "B", "N" );
+		when(mockScanner.next()).thenReturn("A", "Y", "B", "Y", "A", "Y", "C", "Y", "B", "N");
 			
 		when(mockScanner.hasNextInt()).thenReturn(true);		
 		when(mockScanner.nextInt()).thenReturn(1, 1, 5, 1, 1); 
 		
 		classUnderTest.addSKUItems();
 		
-		assert(order.printFinalOrderTotal().equals(new BigDecimal("17.17")));		
+		verify(mockScanner, atLeast(10)).hasNext();
+		verify(mockScanner, atLeast(10)).next();
+		verify(mockScanner, atLeast(5)).hasNextInt();
+		verify(mockScanner, atLeast(5)).nextInt();
+		
+		assertEquals(order.printFinalOrderTotal(), new BigDecimal("17.17"));		
 	}
 
 

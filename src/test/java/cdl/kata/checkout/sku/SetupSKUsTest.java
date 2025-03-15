@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -35,40 +36,23 @@ public class SetupSKUsTest {
 		when(mockScanner.next()).thenReturn("A", "Y", "B","N");
 		
 		when(mockScanner.hasNextBigDecimal()).thenReturn(true);
-		when(mockScanner.nextBigDecimal()).thenReturn(new BigDecimal("2.00") , new BigDecimal("10.00") , new BigDecimal("3.00"), new BigDecimal("28.00")); 
+		when(mockScanner.nextBigDecimal()).thenReturn(new BigDecimal("2.00"), new BigDecimal("10.00"), new BigDecimal("3.00"), new BigDecimal("28.00")); 
 		
 		when(mockScanner.hasNextInt()).thenReturn(true);		
 		when(mockScanner.nextInt()).thenReturn(3, 4); 
 		
 		addSkusResults = classUnderTest.addSKUs();
 	
-		assert(addSkusResults.size() > 0);
-		assert(addSkusResults.get("A").getItem().equals("A"));
-		assert(addSkusResults.get("A").getPrice().equals(new BigDecimal("2.00")));
-		assert(addSkusResults.get("A").getQuantityForSpecialPrice() == 3);
-		assert(addSkusResults.get("A").getSpecialPrice().equals(new BigDecimal("10.00")));
+		assertTrue(addSkusResults.size() == 2);
 		
-		assert(addSkusResults.size() > 0);
-		assert(addSkusResults.get("B").getItem().equals("B"));
-		assert(addSkusResults.get("B").getPrice().equals(new BigDecimal("3.00")));
-		assert(addSkusResults.get("B").getQuantityForSpecialPrice() == 4);
-		assert(addSkusResults.get("B").getSpecialPrice().equals(new BigDecimal("28.00")));
+		assertTrue(addSkusResults.get("A").getItem().equals("A"));
+		assertTrue(addSkusResults.get("A").getPrice().equals(new BigDecimal("2.00")));
+		assertTrue(addSkusResults.get("A").getQuantityForSpecialPrice() == 3);
+		assertTrue(addSkusResults.get("A").getSpecialPrice().equals(new BigDecimal("10.00")));
+		
+		assertTrue(addSkusResults.get("B").getItem().equals("B"));
+		assertTrue(addSkusResults.get("B").getPrice().equals(new BigDecimal("3.00")));
+		assertTrue(addSkusResults.get("B").getQuantityForSpecialPrice() == 4);
+		assertTrue(addSkusResults.get("B").getSpecialPrice().equals(new BigDecimal("28.00")));
 	}
-	
-//	@Test
-	public void addInValidSKUsInputTest() {
-		
-		when(mockScanner.hasNext()).thenReturn(true); //not returning true with Pattern.compile("[A-Za-z] or Mockito.anyString()
-		when(mockScanner.next()).thenReturn("A", "Y", "B","N");
-		
-		when(mockScanner.hasNextBigDecimal()).thenReturn(true);
-		when(mockScanner.nextBigDecimal()).thenReturn(new BigDecimal("wrong") , new BigDecimal("10.00") , new BigDecimal("3.00"), new BigDecimal("28.00")); 
-		
-		when(mockScanner.hasNextInt()).thenReturn(true);		
-		when(mockScanner.nextInt()).thenReturn(3, 4); 
-		
-		addSkusResults = classUnderTest.addSKUs();
-	}
-
-
 }
