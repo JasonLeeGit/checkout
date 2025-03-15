@@ -2,6 +2,7 @@ package cdl.kata.checkout.sku;
 
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import cdl.kata.checkout.order.AddOrderLines;
 import lombok.AllArgsConstructor;
