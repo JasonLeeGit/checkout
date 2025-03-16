@@ -24,7 +24,7 @@ public class SKUItem {
 	private static final String EXCEPTION_MESSAGE = "Error incorrect letter added";
 
 	private static final Logger logger = Logger.getLogger(SKUItem.class.getName());
-
+	
 	public void addSKUItems() {
 		boolean enterOrder = true;
 		while (enterOrder) {
