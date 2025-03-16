@@ -21,37 +21,40 @@ public class SKUItem {
 	private static final String INPUT_MESSAGE = "Enter Sku Item and Quantity seperated by a space IE: A 5";
 	private static final String ERROR_MESSAGE_START = "Incorrect Values entered for item ";
 	private static final String ERROR_MESSAGE_MID = " or quantity ";
+	private static final String EXCEPTION_MESSAGE = "Error incorrect letter added";
 
 	private static final Logger logger = Logger.getLogger(SKUItem.class.getName());
-	
+
 	public void addSKUItems() {
-		boolean enterOrder = true;	
+		boolean enterOrder = true;
 		while (enterOrder) {
+			try {
 
-			logger.info(INPUT_MESSAGE);
+				logger.info(INPUT_MESSAGE);
 
-			String item = "";
-			if (scanner.hasNext()) { 
-				item = scanner.next();
-			} else {
-				printErrorMessage(LETTER_ERROR + scanner.next());
-			}
+				String item = "";
+				if (scanner.hasNext()) {
+					item = scanner.next();
+				} else {
+					printErrorMessage(LETTER_ERROR + scanner.next());
+				}
 
-			int quantity = 0;
-			if (scanner.hasNextInt()) {
-				quantity = scanner.nextInt();
-			} else {
-				printErrorMessage(INTEGER_ERROR + scanner.next());
-			}
+				int quantity = 0;
+				if (scanner.hasNextInt()) {
+					quantity = scanner.nextInt();
+				} else {
+					printErrorMessage(INTEGER_ERROR + scanner.next());
+				}
 
-			SKU skuPrice = SKUMap.get(item.toUpperCase());
+				SKU skuPrice = SKUMap.get(item.toUpperCase());
 
-			if (quantity > 0 && skuPrice != null) {
-				addOrderLines.calculate(quantity, skuPrice);
-				logger.info(NEW_SKU_MESSAGE);
+				if (validQuantityAndPrice(quantity, skuPrice)) {
 
-				try {
-					if (scanner.hasNext()) { 
+					addOrderLines.calculate(quantity, skuPrice);
+
+					logger.info(NEW_SKU_MESSAGE);
+
+					if (scanner.hasNext()) {
 						String addAnother = scanner.next();
 						if (addAnother.equalsIgnoreCase("N")) {
 							enterOrder = false;
@@ -59,16 +62,20 @@ public class SKUItem {
 							logger.info(NEW_SKU_MESSAGE);
 						} else {
 							scanner.nextLine();
-							throw new Exception("Error incorrect letter added");
+							throw new Exception(EXCEPTION_MESSAGE);
 						}
 					}
-				} catch (Exception e) {
-					logger.info("Error incorrect letter added");
+				} else {
+					printErrorMessage(ERROR_MESSAGE_START + item + ERROR_MESSAGE_MID + quantity);
 				}
-			} else {
-				printErrorMessage(ERROR_MESSAGE_START + item + ERROR_MESSAGE_MID + quantity);
+			} catch (Exception e) {
+				logger.info(EXCEPTION_MESSAGE);
 			}
 		}
+	}
+
+	private boolean validQuantityAndPrice(int quantity, SKU skuPrice) {
+		return quantity > 0 && skuPrice != null;
 	}
 
 	private void printErrorMessage(String errorMessage) {

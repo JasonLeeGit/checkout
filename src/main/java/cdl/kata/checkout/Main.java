@@ -42,6 +42,5 @@ public class Main {
 		} catch(Exception e) {
 			logger.info(e.toString());
 		}
-		
 	}
 }
