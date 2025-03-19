@@ -21,10 +21,8 @@ public class Main {
 		logger.info("                    CDL Kata Checkout System                      ");
 		logger.info("******************************************************************");
 
-		try {
-			Map<String, SKU> SKUMap = new HashMap<>();
-			
-			Scanner scanner = new Scanner(System.in);
+		try (Scanner scanner = new Scanner(System.in)) {
+			Map<String, SKU> SKUMap = new HashMap<>();		
 			
 			Order order = new Order();
 	

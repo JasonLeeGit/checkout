@@ -56,7 +56,7 @@ public class AddOrderLines {
 				logger.info("******************************************************************");
 			}
 		} else {
-			// first ever order lne
+			// first ever order line
 			int singlePriceRemainder = quantity % skuPrice.getQuantityForSpecialPrice();
 
 			calulatePrices(skuPrice, quantity, singlePriceRemainder);
